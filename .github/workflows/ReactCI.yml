@@ -30,7 +30,7 @@ jobs:
     needs: syntax_check
     strategy:
       matrix:
-        node-version: '20'
+        node-version: [18.x, 20.x]
 
     steps:
       - name: Checkout code
