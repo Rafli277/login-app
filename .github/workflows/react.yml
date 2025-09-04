@@ -1,4 +1,4 @@
-name: ReactCI
+name: react
 
 on:
   workflow_dispatch:
