@@ -9,7 +9,7 @@ env:
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
-  syntax_check:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
