@@ -11,6 +11,17 @@
 # production
 /build
 
+node_modules
+npm-debug.log*
+build
+.dockerignore
+.git
+.gitignore
+README.md
+.env
+.eslintrc.js
+.prettierrc
+
 # misc
 .DS_Store
 .env.local

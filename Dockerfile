@@ -1,6 +1,5 @@
-# frontend/Dockerfile
-# Gunakan node image yang lebih spesifik
-FROM node:18.17.0-alpine3.18 as build
+# Gunakan format yang konsisten untuk FROM
+FROM node:18.17.0-alpine3.18 AS build
 
 # Set working directory
 WORKDIR /app
@@ -8,9 +7,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Clear npm cache dan install dependencies
-RUN npm cache clean --force && \
-    npm install --silent
+# Install semua dependencies (termasuk devDependencies untuk build)
+RUN npm install
 
 # Copy source code
 COPY . .
