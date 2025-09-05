@@ -1,5 +1,5 @@
 # Gunakan format yang konsisten untuk FROM
-FROM node:18.17.0-alpine3.18 AS build
+FROM node:20-alpine AS build
 
 # Set working directory
 WORKDIR /app
@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install semua dependencies (termasuk devDependencies untuk build)
-RUN npm install
+# Install HANYA production dependencies (lebih aman)
+RUN npm ci --only=production
 
 # Copy source code
 COPY . .
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Stage production
-FROM nginx:1.25.2-alpine
+FROM nginx:1.25-alpine
 
 # Copy build output ke nginx
 COPY --from=build /app/build /usr/share/nginx/html
