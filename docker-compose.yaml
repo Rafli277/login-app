@@ -1,12 +1,18 @@
 version: '3.8'
 
 services:
-  fe-js:
+  fe-react:
     image: rafli27/frontend-react:latest
-    container_name: fe-js-app
+    container_name: fe-react-app
     ports:
       - '3000:80'
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_URL=http://localhost:8080/api
+    restart: unless-stopped
+    networks:
+      - app-network
 
 networks:
-  fe-network:
+  app-network:
     driver: bridge
