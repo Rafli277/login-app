@@ -7,4 +7,5 @@ const PrivateRoute = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/" replace />;
 };
 
+// PASTIKAN EXPORT DEFAULT ADA!
 export default PrivateRoute;

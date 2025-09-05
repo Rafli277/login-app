@@ -35,4 +35,5 @@ const Dashboard = ({ onLogout }) => {
   );
 };
 
+// PASTIKAN EXPORT DEFAULT ADA!
 export default Dashboard;
