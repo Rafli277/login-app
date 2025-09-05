@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
@@ -11,8 +12,15 @@ function App() {
 
   useEffect(() => {
     // Check if user is already logged in
+    const token = localStorage.getItem('token');
     const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-    setIsAuthenticated(authStatus);
+
+    if (token && authStatus) {
+      // Set default authorization header
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setIsAuthenticated(true);
+    }
+
     setIsLoading(false);
   }, []);
 
@@ -21,8 +29,14 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
+    // Hapus semua data auth
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('isAuthenticated');
+
+    // Hapus auth header
+    delete axios.defaults.headers.common['Authorization'];
+
     setIsAuthenticated(false);
   };
 
@@ -31,8 +45,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Router>
+    <Router>
+      <div className="App">
         <Routes>
           <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login onLogin={handleLogin} />} />
           <Route
@@ -44,8 +58,8 @@ function App() {
             }
           />
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 
